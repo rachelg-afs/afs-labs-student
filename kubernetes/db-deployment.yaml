@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
+  name: db-deployment
   namespace: rgeorge
   labels:
-    app: app
+    app: db
 spec:
   replicas: 1
   strategy:
@@ -12,17 +12,17 @@ spec:
   minReadySeconds: 20
   selector:
     matchLabels:
-      app: app
+      app: db
   template:
     metadata:
       labels:
-        app: app
+        app: db
     spec:
       containers:
       - envFrom:
         - secretRef:
             name: db-secret
-        name: app-deployment
-        image: harbor.dev.afsmtddso.com/rgeorge-harbor-project/app@sha256:3f8590b8d4677a5385b45d83ae2ea4946e08ef627519a5b8b24b84ee431d5968
+        name: db-deployment
+        image: harbor.dev.afsmtddso.com/rgeorge-harbor-project/db@sha256:9d3a505005fbc13d8c76ba5ffb49cee83843f80ab10bf2cdccf042fd5dd66918
         ports:
-        - containerPort: 5000
+        - containerPort: 5432
